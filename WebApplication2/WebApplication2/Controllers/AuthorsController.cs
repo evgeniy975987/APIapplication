@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using WebApplication2.data.reposytorys;
 using BuisnessLayer;
+using BuisnessLayer.Interfaces;
 
 namespace WebApplication2.Controllers
 {
@@ -26,53 +27,53 @@ namespace WebApplication2.Controllers
         /// </summary>
         /// <returns></returns>
         /// 
-        DataManager _manager;
+        IAuthorRepository _authorRepository;
 
-        public AuthorsController (DataManager manager) {
-            _manager = manager;
+        public AuthorsController (IAuthorRepository manager) {
+            _authorRepository = manager;
         }
         [HttpGet]
         public  IEnumerable <string> AllAuthors()
         {
-                return _manager._authorRepository.AllAuthors();
+                return _authorRepository.AllAuthors();
         }
 
         [HttpGet("allBooksAuthor")]
         public IEnumerable<string> AllBookAuthor([FromForm] int AuthorID)
         {
-                return _manager._authorRepository.AllBookAuthor(AuthorID);
+                return _authorRepository.AllBookAuthor(AuthorID);
         }
         
         
         [HttpPost("deleteAuthor")]
         public string DeleteAuthor([FromForm] int AuthorID)
         {
-            var rezult = _manager._authorRepository.DeleteAuthor(AuthorID);
-            _manager._authorRepository.save();
+            var rezult = _authorRepository.DeleteAuthor(AuthorID);
+            _authorRepository.save();
             return rezult;
             
         }
         [HttpPost("insert")]
-        public string InsertAuthor([FromForm] Author author)
+        public string NewAuthor([FromForm] Author author)
         {
             author.DateInsert = DateTime.Now;
-            _manager._authorRepository.NewAuthor(author);
-            _manager._authorRepository.save();
+            _authorRepository.NewAuthor(author);
+            _authorRepository.save();
             return "Добавлен";
         }
         [HttpPost("InsertWithBooks")]
-        public string InsertAuthor([FromForm] Author author, [FromForm] Book book, [FromForm] Genre genre)
+        public string NewAuthor([FromForm] Author author, [FromForm] Book book, [FromForm] Genre genre)
         {
             author.DateInsert = DateTime.Now;
             author.DateInsert = DateTime.Now;
-            _manager._authorRepository.NewAuthor(author, book, genre);
-            _manager._authorRepository.save();
+            _authorRepository.NewAuthor(author, book, genre);
+            _authorRepository.save();
             return "Добавлен";
         }
 
         public  string deleteAuthorCascad(int idAuthor) {
-            var rezult = _manager._authorRepository.DeleteAuthorCascad(idAuthor);
-            _manager._authorRepository.save();
+            var rezult = _authorRepository.DeleteAuthorCascad(idAuthor);
+            _authorRepository.save();
             return rezult;
         }
 

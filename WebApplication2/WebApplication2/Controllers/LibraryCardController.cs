@@ -8,6 +8,7 @@ using Workers;
 
 using WebApplication2.data.reposytorys;
 using BuisnessLayer;
+using BuisnessLayer.Interfaces;
 
 namespace WebApplication2.Controllers
 {
@@ -20,30 +21,30 @@ namespace WebApplication2.Controllers
         /// DatesRefund() //Возвращает всех должников
         /// </summary>
 
-        DataManager _manager;
+        ILibraryCardsRepository _libraryCardsRepository;
 
-        public LibraryCardController(DataManager manager)
+        public LibraryCardController(ILibraryCardsRepository manager)
         {
-            _manager = manager;
+            _libraryCardsRepository = manager;
         }
 
         [HttpPost]
-        public string UpdateLibreryCard([FromForm] int bookID, [FromForm] int personID, [FromForm] int days)
+        public string ChangeRefund([FromForm] int bookID, [FromForm] int personID, [FromForm] int days)
         {
-            var rezult = _manager._libraryCardsRepository.ChangeRefund(bookID, personID, days);
-            _manager._libraryCardsRepository.save();
+            var rezult = _libraryCardsRepository.ChangeRefund(bookID, personID, days);
+            _libraryCardsRepository.save();
             return rezult;
         }
 
         [HttpGet]
-        public IEnumerable <string>  DatesRefund()
+        public IEnumerable <string>  AllRefund()
         {
-                 return _manager._libraryCardsRepository.AllRefund();
+                 return _libraryCardsRepository.AllRefund();
         }
 
         [HttpPost]
-        public IEnumerable <string> CheakRefundPerson([FromBody]int userID) {
-                return _manager._libraryCardsRepository.AllRefundPerson(userID);
+        public IEnumerable <string> AllRefundPerson([FromBody]int userID) {
+                return _libraryCardsRepository.AllRefundPerson(userID);
         }
         
     }

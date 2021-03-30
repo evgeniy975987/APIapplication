@@ -1,4 +1,5 @@
 ﻿using BuisnessLayer;
+using BuisnessLayer.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,24 +14,24 @@ namespace WebApplication2.Controllers
     [ApiController]
     public class NewAuthorController : ControllerBase
     {
-        DataManager _manager;
+        IAuthorRepository _authorRepository;
 
-        public NewAuthorController(DataManager manager)
+        public NewAuthorController(IAuthorRepository manager)
         {
-            _manager = manager;
+            _authorRepository = manager;
         }
 
         [HttpGet("Find")]
-        public IEnumerable<string> FindBook([FromForm] int year, [FromForm] bool sort)
+        public IEnumerable<string> FindBooks([FromForm] int year, [FromForm] bool sort)
         {
             // если sort = false - сортровка по алфавиту  если true наоборот
-            var rezult = _manager._authorRepository.FindBooks(year, sort);
+            var rezult = _authorRepository.FindBooks(year, sort);
             return rezult;
         }
         [HttpGet("FindTitle")]
         public IEnumerable<string> FindTitleBook([FromForm] string findText)
         {
-            var rezult = _manager._authorRepository.FindTitleBook(findText);
+            var rezult = _authorRepository.FindTitleBook(findText);
             return rezult;
         }
     }

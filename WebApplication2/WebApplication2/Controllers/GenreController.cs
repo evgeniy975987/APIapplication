@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 using WebApplication2.data.reposytorys;
 using BuisnessLayer;
+using BuisnessLayer.Interfaces;
 
 namespace WebApplication2.Controllers
 {
@@ -13,40 +14,40 @@ namespace WebApplication2.Controllers
     public class GenreController : ControllerBase
     {
 
-        DataManager _manager;
+        IGenreRepository _genreRepository;
 
-        public GenreController(DataManager manager)
+        public GenreController(IGenreRepository manager)
         {
-            _manager = manager;
+            _genreRepository = manager;
         }
         [HttpGet]
         public  IEnumerable<string> GetAllGenre()
         {
-            return _manager._genreRepository.Allgenre();
+            return _genreRepository.Allgenre();
         }
 
         [HttpPost]
         public bool NewGenre([FromBody] string genre)
         {
-            bool rezult = _manager._genreRepository.NewGenre(genre);
-            _manager._genreRepository.Save();
+            bool rezult = _genreRepository.NewGenre(genre);
+            _genreRepository.Save();
             return rezult;
         }
 
         [HttpPost]
         public bool DeleteGenre([FromForm] int GenreID)
         {
-            var rezult = _manager._genreRepository.DeleteGenre(GenreID);
-            _manager._genreRepository.Save();
+            var rezult = _genreRepository.DeleteGenre(GenreID);
+            _genreRepository.Save();
             return rezult;
         }
         
 
         
          [HttpGet("GenreStatistic")]
-        public IEnumerable <string> GenreStatistic() 
+        public IEnumerable <string> Statistic() 
         {
-            return _manager._genreRepository.Statistic();
+            return _genreRepository.Statistic();
         }
         
     }

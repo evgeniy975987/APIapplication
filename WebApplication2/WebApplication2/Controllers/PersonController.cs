@@ -6,6 +6,7 @@ using Workers;
 
 using WebApplication2.data.reposytorys;
 using BuisnessLayer;
+using BuisnessLayer.Interfaces;
 
 namespace WebApplication2.Controllers
 {
@@ -23,11 +24,11 @@ namespace WebApplication2.Controllers
         /// метод DeleteBookLibrary -  6.1.7 вернуть книгу которая была получена пользователем
         /// методы DeletePerson - 6.1.4 и 6.1.3 удаляют пользователя по ID и по ФИО
         /// </summary>
-        DataManager _manager;
+        IPersonRepository _personRepository;
        
-        public PersonController(DataManager person)
+        public PersonController(IPersonRepository person)
         {
-            _manager = person;
+            _personRepository = person;
         }
 
        
@@ -35,32 +36,32 @@ namespace WebApplication2.Controllers
         [HttpPost("newPerson")]
         public string NewPerson([FromForm] DateTime birthDay, [FromForm] string firstName, [FromForm] string middleName, [FromForm] string lastName)
         {
-           var rezult = _manager._personRepository.NewPerson(birthDay, firstName, middleName, lastName);
-            _manager._personRepository.Save();
+           var rezult = _personRepository.NewPerson(birthDay, firstName, middleName, lastName);
+            _personRepository.Save();
             return rezult;
 
 
         }
         [HttpPost("editPerson")]
-        public string UpdatePerson([FromForm] string firstName, [FromForm] string middleName, [FromForm] string lastName, [FromForm] DateTime birthday, [FromForm] int personID)
+        public string ChangePerson([FromForm] string firstName, [FromForm] string middleName, [FromForm] string lastName, [FromForm] DateTime birthday, [FromForm] int personID)
         {
-            var rezult = _manager._personRepository.ChangePerson(firstName, middleName, lastName, personID, birthday);
-            _manager._personRepository.Save();
+            var rezult = _personRepository.ChangePerson(firstName, middleName, lastName, personID, birthday);
+            _personRepository.Save();
             return rezult;
         }
         [HttpDelete("deletePerson")]
         public bool DeletePerson([FromForm] int PersonID) 
         {
-            var rezult = _manager._personRepository.deletePerson(PersonID);
-            _manager._personRepository.Save();
+            var rezult = _personRepository.DeletePerson(PersonID);
+            _personRepository.Save();
             return rezult;
         }
         
         [HttpDelete("delete")]
         public  bool DeletePerson([FromForm] string firstName, [FromForm] string middleName, [FromForm] string lastName)
         {
-            var rezult = _manager._personRepository.deletePerson(firstName, middleName, lastName);
-            _manager._personRepository.Save();
+            var rezult = _personRepository.DeletePerson(firstName, middleName, lastName);
+            _personRepository.Save();
             return rezult;
             
         }
@@ -69,22 +70,22 @@ namespace WebApplication2.Controllers
         [HttpPost("newLibraryCards")]
         public string NewLibraryCards([FromForm] int bookID, [FromForm] int personID)
         {
-            var rezult = _manager._personRepository.NewLibraryCard(personID, bookID); ;
-            _manager._personRepository.Save();
+            var rezult = _personRepository.NewLibraryCard(personID, bookID); ;
+            _personRepository.Save();
             return rezult;
         }
 
         [HttpDelete("deleteBookLibrary")]
         public string DeleteLibraryCard([FromForm] int bookID, [FromForm] int personID)
         {
-            var rezult = _manager._personRepository.DeleteLibraryCard(bookID, personID);
-            _manager._personRepository.Save();
+            var rezult = _personRepository.DeleteLibraryCard(bookID, personID);
+            _personRepository.Save();
             return rezult;
         }
 
         [HttpGet("AllBooksPerson")]
         public IEnumerable<string> AllBooksPerson([FromForm] int personID) {
-           return _manager._personRepository.AllbooksPerson(personID);
+           return _personRepository.AllbooksPerson(personID);
         }
     }
 }

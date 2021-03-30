@@ -6,6 +6,7 @@ using WebApplication2.Models;
 
 using WebApplication2.data.reposytorys;
 using BuisnessLayer;
+using BuisnessLayer.Interfaces;
 
 namespace WebApplication2.Controllers
 {
@@ -22,41 +23,41 @@ namespace WebApplication2.Controllers
         /// GetAllBooks - список книг по жанру
         /// </summary>
 
-        DataManager _manager;
+        IBookRepository _bookRepository;
 
-        public BookController(DataManager manager)
+        public BookController(IBookRepository manager)
         {
-            _manager = manager;
+            _bookRepository = manager;
         }
 
         [HttpGet]
         public  IEnumerable<string> AllBookAuthor([FromForm] int AuthorID)
         {
-                return _manager._bookRepository.AllBooksAuthor(AuthorID); 
+                return _bookRepository.AllBooksAuthor(AuthorID); 
         }
         [HttpGet("Genre")]
-        public IEnumerable<string> GetAllBooks([FromForm] int genreID )
+        public IEnumerable<string> AllBooksGenre([FromForm] int genreID )
         {
-            return _manager._bookRepository.AllBooksGenre(genreID);
+            return _bookRepository.AllBooksGenre(genreID);
         }
         [HttpDelete("DeleteBook")]
         public string DeleteBook([FromForm] int bookID) {
-            string rezult = _manager._bookRepository.DeleteBook(bookID);
-            _manager._bookRepository.Save();
+            string rezult = _bookRepository.DeleteBook(bookID);
+            _bookRepository.Save();
             return rezult;
         }
         [HttpPost("newBook")]
         public string NewBook([FromForm] Book book, [FromForm] Author author, [FromForm] Genre genre) {
             book.author = author;
-            var rezult = _manager._bookRepository.NewBook(book, author, genre);
-            _manager._bookRepository.Save();
+            var rezult = _bookRepository.NewBook(book, author, genre);
+            _bookRepository.Save();
             return rezult;
         }
 
         [HttpPost("updateGenre")]
         public string UpdateBookGenre([FromForm] int GenreID, [FromForm]   int BookID, bool Choise) {
-            var rezult = _manager._bookRepository.UpdateBookGenre(GenreID,  BookID, Choise);
-            _manager._bookRepository.Save();
+            var rezult = _bookRepository.UpdateBookGenre(GenreID,  BookID, Choise);
+            _bookRepository.Save();
             return rezult;
         }
 
