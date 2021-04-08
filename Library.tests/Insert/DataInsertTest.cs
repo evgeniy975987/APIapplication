@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
 using Microsoft.EntityFrameworkCore;
-using WebApplication2.Models;
+using WebApplication2.Entitys;
 using Workers;
 
-namespace Library.ConrtrollerTests.RepositoryTest
+namespace Library.Insert.Data
 {
     
     public class DataInsertTest : ApplicationContext
     {
         
-        public DataInsertTest() {
+        public DataInsertTest() : base (new DbContextOptions<ApplicationContext>() ) {
             Database.EnsureDeleted();
             Database.EnsureCreated();
             Database.Migrate();
@@ -29,8 +29,6 @@ namespace Library.ConrtrollerTests.RepositoryTest
             for (int i = 0; i < 200; i++)
             {
                 Random random = new Random();
-                
-
                 Book book = new Book();
                 book.DateInsert = DateTimeOffset.Now;
                 book.DateUpdate = DateTimeOffset.Now;
@@ -39,9 +37,9 @@ namespace Library.ConrtrollerTests.RepositoryTest
 
                 Author author = new Author();
                 var fixture = new Fixture();
-                author.first_name = new Fixture().Create<string>();
-                author.middle_name = new Fixture().Create<string>();
-                author.last_name = new Fixture().Create<string>();
+                author.firstName = new Fixture().Create<string>();
+                author.middleName = new Fixture().Create<string>();
+                author.lastName = new Fixture().Create<string>();
                 author.DateInsert = DateTimeOffset.Now;
                 author.DateUpdate = DateTime.Now;
 

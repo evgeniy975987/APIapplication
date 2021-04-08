@@ -1,9 +1,8 @@
-﻿using Library.ConrtrollerTests.RepositoryTest;
+﻿using Library.Insert.Data;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WebApplication2.Controllers;
 using WebApplication2.data.reposytorys;
+using WebApplication2.Entitys;
 using Xunit;
 
 namespace Library.tests.ControllersTests
@@ -16,30 +15,30 @@ namespace Library.tests.ControllersTests
         [Fact]
         public static void NewPerson_NotNull()
         {
-            DateTime date = DateTime.Now;
-            string firstName = "first name";
-            string midleName = "middle Name";
-            string lastName = "middle Name";
-            var rezult = _authorsController.NewPerson(date, firstName, midleName, lastName);
+            Person person = new Person();
+            person.BirthDay = DateTime.Now;
+            person.FirstName = "first name";
+            person.MiddleName = "middle Name";
+            person.LastName = "middle Name";
+            var rezult = _authorsController.NewPerson(person);
             Assert.NotNull(rezult);
         }
         [Fact]
         public static void ChangePerson_NotNull()
         {
-            DateTime date = DateTime.Now;
-            string firstName = "first name2";
-            string midleName = "middle Name2";
-            string lastName = "last Name2";
-            int personID = 10;
-            
-            var rezult = _authorsController.ChangePerson(firstName, midleName, lastName, date, personID );
+            Person person = new Person();
+            person.BirthDay = DateTime.Now;
+            person.FirstName = "first name";
+            person.MiddleName = "middle Name";
+            person.LastName = "middle Name";
+            person.PersonID = 10;
+            var rezult = _authorsController.ChangePerson(person);
             Assert.NotNull(rezult);
         }
         [Fact]
         public static void DeletePerson_NotNull()
         {
             int ID = 7;
-            
             var rezult = _authorsController.DeletePerson(ID);
             Assert.True(rezult);
         }

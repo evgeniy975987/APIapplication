@@ -1,5 +1,5 @@
 ﻿
-using WebApplication2.Models;
+using WebApplication2.Entitys;
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Workers;
 
-namespace WebApplication2.Models
+namespace WebApplication2.Entitys
 {
     [Table("Genre")]
     public class Genre

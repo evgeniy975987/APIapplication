@@ -1,21 +1,15 @@
-﻿using BuisnessLayer;
-using BuisnessLayer.Interfaces;
-using Library.ConrtrollerTests.RepositoryTest;
-using Microsoft.EntityFrameworkCore;
+﻿using BuisnessLayer.Interfaces;
+
+using Library.Insert.Data;
 using Moq;
 using System;
-using System.Collections.Generic;
-using WebApplication2.Controllers;
 using WebApplication2.data.reposytorys;
-using WebApplication2.Models;
-using Workers;
 using Xunit;
 
-namespace Library.ConrtrollerTests
+namespace Library.RepositoryTests
 {
     public class PersonRepositoryTest
     {
-
         static DataInsertTest _context = new DataInsertTest();
         static Mock<IPersonRepository> _mock = new Mock<IPersonRepository>();
         static PersonRepository _personRepository = new PersonRepository(_context);

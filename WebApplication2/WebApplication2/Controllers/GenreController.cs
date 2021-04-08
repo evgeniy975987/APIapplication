@@ -1,4 +1,4 @@
-﻿using WebApplication2.Models;
+﻿using WebApplication2.Entitys;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,36 +16,34 @@ namespace WebApplication2.Controllers
 
         IGenreRepository _genreRepository;
 
-        public GenreController(IGenreRepository manager)
+        public GenreController(IGenreRepository genreRepository)
         {
-            _genreRepository = manager;
+            _genreRepository = genreRepository;
         }
         [HttpGet]
-        public  IEnumerable<string> GetAllGenre()
+        public string GetAllGenre()
         {
             return _genreRepository.Allgenre();
         }
 
         [HttpPost]
-        public bool NewGenre([FromBody] string genre)
+        public bool NewGenre([FromForm] string genre)
         {
             bool rezult = _genreRepository.NewGenre(genre);
-            _genreRepository.Save();
             return rezult;
         }
 
-        [HttpPost]
+        [HttpDelete("DeleteGenre")]
         public bool DeleteGenre([FromForm] int GenreID)
         {
             var rezult = _genreRepository.DeleteGenre(GenreID);
-            _genreRepository.Save();
             return rezult;
         }
         
 
         
          [HttpGet("GenreStatistic")]
-        public IEnumerable <string> Statistic() 
+        public string Statistic() 
         {
             return _genreRepository.Statistic();
         }

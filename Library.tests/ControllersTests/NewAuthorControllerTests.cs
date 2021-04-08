@@ -1,12 +1,6 @@
-﻿using BuisnessLayer.Interfaces;
-using Library.ConrtrollerTests.RepositoryTest;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Library.Insert.Data;
 using WebApplication2.Controllers;
 using WebApplication2.data.reposytorys;
-using WebApplication2.Models;
 using Xunit;
 
 namespace Library.tests.ControllersTests

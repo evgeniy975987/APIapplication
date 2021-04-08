@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Workers;
 
-namespace WebApplication2.Models
+namespace WebApplication2.Entitys
 {
     [Table("Persons")]
     public class Person
@@ -25,7 +25,6 @@ namespace WebApplication2.Models
 
         [Column("last_Name")]
         public string LastName { get; set; }
-
 
         [Column("date_insert")]
         public DateTimeOffset DateInsert { get; set; }

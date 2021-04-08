@@ -1,10 +1,8 @@
-﻿using Library.ConrtrollerTests.RepositoryTest;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using Library.Insert.Data;
 using WebApplication2.Controllers;
 using WebApplication2.data.reposytorys;
-using WebApplication2.Models;
+using WebApplication2.Entitys;
 using Xunit;
 
 namespace Library.tests.ControllersTests
@@ -45,9 +43,9 @@ namespace Library.tests.ControllersTests
         public static void NewBook()
         {
             Author author = new Author();
-            author.first_name = "Тест";
-            author.middle_name = "middle name";
-            author.last_name = "Last Name";
+            author.firstName = "Тест";
+            author.middleName = "middle name";
+            author.lastName = "Last Name";
             Book book = new Book();
             book.Title = "test";
             Genre genre = new Genre();

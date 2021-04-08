@@ -1,18 +1,13 @@
-using System;
-using Xunit;
-using WebApplication2.Models;
-using WebApplication2.data.reposytorys;
-using Moq;
-using WebApplication2.Controllers;
-using System.Collections.Generic;
-using Workers;
-using BuisnessLayer;
 using BuisnessLayer.Interfaces;
-using Library.ConrtrollerTests.RepositoryTest;
+using Library.Insert.Data;
+using Moq;
+using WebApplication2.data.reposytorys;
+using WebApplication2.Entitys;
+using Xunit;
 
-namespace Library.ConrtrollerTests
+namespace Library.RepositoryTests
 {
-    
+
     public class BookRepositoryTest
     {
 
@@ -45,7 +40,7 @@ namespace Library.ConrtrollerTests
             int bookID = 10;
 
             _mock.Setup(p => p.DeleteBook(bookID)).Returns(bookRepository.DeleteBook(bookID));
-            var rezult = _mock.Object.AllBooksAuthor(bookID);
+            var rezult = _mock.Object.DeleteBook(bookID);
             
             Assert.NotNull(rezult);
         }
@@ -54,9 +49,9 @@ namespace Library.ConrtrollerTests
         public static void NewBook()
         {
             Author author = new Author();
-            author.first_name = "Тест";
-            author.middle_name = "middle name";
-            author.last_name = "Last Name";
+            author.firstName = "Тест";
+            author.middleName = "middle name";
+            author.lastName = "Last Name";
             Book book = new Book();
             book.Title = "test";
             Genre genre = new Genre();

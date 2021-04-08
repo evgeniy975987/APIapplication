@@ -1,7 +1,6 @@
-﻿using Library.ConrtrollerTests.RepositoryTest;
+﻿
+using Library.Insert.Data;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WebApplication2.Controllers;
 using WebApplication2.data.reposytorys;
 using Xunit;

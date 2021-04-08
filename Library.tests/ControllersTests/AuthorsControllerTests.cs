@@ -1,12 +1,7 @@
-﻿using BuisnessLayer.Interfaces;
-using Library.ConrtrollerTests.RepositoryTest;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Library.Insert.Data;
 using WebApplication2.Controllers;
 using WebApplication2.data.reposytorys;
-using WebApplication2.Models;
+using WebApplication2.Entitys;
 using Xunit;
 
 namespace Library.tests.ControllersTests
@@ -50,9 +45,9 @@ namespace Library.tests.ControllersTests
         public static void NewAuthor_newAuthor_equal()
         {
             Author author = new Author();
-            author.first_name = "Test";
-            author.middle_name = "Test";
-            author.last_name = "TEST";
+            author.firstName = "Test";
+            author.middleName = "Test";
+            author.lastName = "TEST";
             var rezult = _authorRepository.NewAuthor(author);
             Assert.Equal("Добавлен", rezult);
         }

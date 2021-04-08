@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BuisnessLayer.Interfaces
 {
@@ -14,7 +12,7 @@ namespace BuisnessLayer.Interfaces
         public string NewLibraryCard(int personID, int bookID);
         public string DeleteLibraryCard(int bookID, int personID);
         public void Save();
-        public IEnumerable<string> AllbooksPerson(int personID);
+        public string AllbooksPerson(int personID);
         
     }
 }

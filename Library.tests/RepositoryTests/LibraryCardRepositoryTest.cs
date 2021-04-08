@@ -1,16 +1,10 @@
-﻿using BuisnessLayer;
-using BuisnessLayer.Interfaces;
-using Library.ConrtrollerTests.RepositoryTest;
+﻿using BuisnessLayer.Interfaces;
+using Library.Insert.Data;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using WebApplication2.Controllers;
 using WebApplication2.data.reposytorys;
-using Workers;
 using Xunit;
 
-namespace Library.ConrtrollerTests
+namespace Library.RepositoryTests
 {
     public class LibraryCardRepositoryTest
     {

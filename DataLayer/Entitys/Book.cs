@@ -1,4 +1,4 @@
-﻿using WebApplication2.Models;
+﻿using WebApplication2.Entitys;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,16 +8,13 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using Workers;
 
-namespace WebApplication2.Models
+namespace WebApplication2.Entitys
 {
     [Table("Books")]
     public class Book
     {
         [Column("ID_book")]
-       
         public int BookID { get; set; }
-
-        
         public Author author { get; set; }
 
         [Column("title")]
@@ -31,12 +28,6 @@ namespace WebApplication2.Models
 
         [Column("date_update")]
         public DateTimeOffset DateUpdate { get; set; }
-
-        
-        
         public ICollection<Genre> Genre { get; set; } = new List<Genre>();
-        
-
-        
     }
 }
