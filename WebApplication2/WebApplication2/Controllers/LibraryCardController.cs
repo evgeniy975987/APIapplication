@@ -1,14 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BuisnessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Workers;
-
-using WebApplication2.data.reposytorys;
-using BuisnessLayer;
-using BuisnessLayer.Interfaces;
 
 namespace WebApplication2.Controllers
 {
@@ -23,27 +14,26 @@ namespace WebApplication2.Controllers
 
         ILibraryCardsRepository _libraryCardsRepository;
 
-        public LibraryCardController(ILibraryCardsRepository manager)
+        public LibraryCardController(ILibraryCardsRepository libraryCardsRepository)
         {
-            _libraryCardsRepository = manager;
+            _libraryCardsRepository = libraryCardsRepository;
         }
 
         [HttpPost]
         public string ChangeRefund([FromForm] int bookID, [FromForm] int personID, [FromForm] int days)
         {
             var rezult = _libraryCardsRepository.ChangeRefund(bookID, personID, days);
-            _libraryCardsRepository.save();
             return rezult;
         }
 
         [HttpGet]
-        public IEnumerable <string>  AllRefund()
+        public string  AllRefund()
         {
                  return _libraryCardsRepository.AllRefund();
         }
 
-        [HttpPost]
-        public IEnumerable <string> AllRefundPerson([FromBody]int userID) {
+        [HttpGet("AllRefundPerson")]
+        public string AllRefundPerson([FromForm]int userID) {
                 return _libraryCardsRepository.AllRefundPerson(userID);
         }
         

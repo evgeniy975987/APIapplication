@@ -26,23 +26,16 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             services.AddMvc();
-            
             services.AddControllers();
-            services.AddScoped<ApplicationContext>();
+            
             services.AddTransient<IAuthorRepository, AuthorRepository>();
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<IGenreRepository, GenreRepository>();
             services.AddTransient<ILibraryCardsRepository, LibraryCardsRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
-
-
-            
-
-
-
-
+            string connectionString = Configuration.GetConnectionString("Connection");
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

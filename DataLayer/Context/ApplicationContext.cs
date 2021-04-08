@@ -1,4 +1,4 @@
-﻿using WebApplication2.Models;
+﻿using WebApplication2.Entitys;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
@@ -13,15 +13,12 @@ namespace Workers
         public DbSet<Author> Authors { get; set; }
         public DbSet<LibraryCards> LibraryCards { get; set; }
         public DbSet<Person> Persons { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var builder = new ConfigurationBuilder();
-            builder.SetBasePath(Directory.GetCurrentDirectory());
-            builder.AddJsonFile("appsettings.json");
-            var config = builder.Build();
-            string connectionString = config.GetConnectionString("Connection");
-            optionsBuilder.UseSqlServer(connectionString);
+
+        
+
+        public ApplicationContext(DbContextOptions <ApplicationContext> options) : base (options) { 
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Genre>().ToTable("Genre");

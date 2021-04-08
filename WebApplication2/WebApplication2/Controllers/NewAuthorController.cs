@@ -16,20 +16,20 @@ namespace WebApplication2.Controllers
     {
         IAuthorRepository _authorRepository;
 
-        public NewAuthorController(IAuthorRepository manager)
+        public NewAuthorController(IAuthorRepository authorRepository)
         {
-            _authorRepository = manager;
+            _authorRepository = authorRepository;
         }
 
         [HttpGet("Find")]
-        public IEnumerable<string> FindBooks([FromForm] int year, [FromForm] bool sort)
+        public string FindBooks([FromForm] int year, [FromForm] bool sort)
         {
             // если sort = false - сортровка по алфавиту  если true наоборот
             var rezult = _authorRepository.FindBooks(year, sort);
             return rezult;
         }
         [HttpGet("FindTitle")]
-        public IEnumerable<string> FindTitleBook([FromForm] string findText)
+        public string FindTitleBook([FromForm] string findText)
         {
             var rezult = _authorRepository.FindTitleBook(findText);
             return rezult;

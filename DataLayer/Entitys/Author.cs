@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Workers;
 
-namespace WebApplication2.Models
+namespace WebApplication2.Entitys
 
 {
     [Table("Authors")]
@@ -16,20 +16,15 @@ namespace WebApplication2.Models
         public int AuthorID { get; set; }
         
         [Column("first_name")]
-        public string first_name { get; set; }
+        public string firstName { get; set; }
         [Column("middle_name")]
-        public string middle_name { get; set; }
+        public string middleName { get; set; }
         [Column("last_name")]
-        public string last_name { get; set; }
+        public string lastName { get; set; }
         public ICollection <Book> Books { get; set; }
         [Column("date_insert")]
         public DateTimeOffset DateInsert { get; set; }
         [Column("date_update")]
         public DateTimeOffset DateUpdate { get; set; }
-
-        
-
-
-
     } 
 }

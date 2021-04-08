@@ -1,7 +1,5 @@
-﻿using Library.ConrtrollerTests.RepositoryTest;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using Library.Insert.Data;
 using WebApplication2.Controllers;
 using WebApplication2.data.reposytorys;
 using Xunit;
@@ -34,8 +32,6 @@ namespace Library.tests.ControllersTests
         [Fact]
         public static void CheakRefundPerson_NotEmpty()
         {
-            int personID = 1;
-            
             var rezult = _bookConrtroller.AllRefund();
             Assert.NotEmpty(rezult);
         }

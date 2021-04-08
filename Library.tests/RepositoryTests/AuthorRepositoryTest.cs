@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebApplication2;
-using WebApplication2.Models;
-using Xunit;
-using WebApplication2.data.reposytorys;
+﻿using BuisnessLayer.Interfaces;
+using Library.Insert.Data;
 using Moq;
-using WebApplication2.Controllers;
-using Workers;
-using BuisnessLayer;
-using BuisnessLayer.Interfaces;
-using Library.ConrtrollerTests.RepositoryTest;
-using AutoFixture;
+using WebApplication2.data.reposytorys;
+using WebApplication2.Entitys;
+using Xunit;
 
-namespace Library.ConrtrollerTests
+namespace Library.RepositoryTests
+
 {
     public class AuthorRepositoryTest 
     {
@@ -39,7 +32,6 @@ namespace Library.ConrtrollerTests
         {
             int authorID = 2;
             _mock.Setup(p => p.AllBookAuthor(authorID)).Returns(authorRepository.AllBookAuthor(authorID));
-
             var rezult = _mock.Object.AllBookAuthor(authorID);
             Assert.NotEmpty(rezult);
         }
@@ -91,9 +83,9 @@ namespace Library.ConrtrollerTests
         public static void NewAuthor_newAuthor_equal()
         {
             Author author = new Author();
-            author.first_name = "Test";
-            author.middle_name = "Test";
-            author.last_name = "TEST";
+            author.firstName = "Test";
+            author.middleName = "Test";
+            author.lastName = "TEST";
 
             _mock.Setup(p => p.NewAuthor(author)).Returns(authorRepository.NewAuthor(author));
             var rezult = _mock.Object.NewAuthor(author);

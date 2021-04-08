@@ -1,13 +1,11 @@
-﻿using WebApplication2.Models;
-
-
+﻿using BuisnessLayer.DTO;
+using BuisnessLayer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text.Json;
+using WebApplication2.Entitys;
 using Workers;
-using BuisnessLayer.Interfaces;
 
 namespace WebApplication2.data.reposytorys
 {
@@ -19,32 +17,32 @@ namespace WebApplication2.data.reposytorys
         public GenreRepository(ApplicationContext context) {
             _Context = context;
         }
-        public  IEnumerable <string> Allgenre()
+        public  string Allgenre()
         {
-            foreach (Genre genre in _Context.Genres)
-                yield return genre.name;
+            string json = JsonSerializer.Serialize(GenreDTO.ToListGenreDTO(_Context.Genres.ToList<Genre>()));
+            return json;
         }
         public  bool NewGenre(string  newGenre)
         {
             try
             {
                 _Context.Genres.Add(new Genre() { name = newGenre, DateInsert = DateTime.Now });
+                Save();
                 return true;
             }
-
             catch {
                 return false;
             }
         }
-        public IEnumerable<string> Statistic() {
-            foreach (Genre genre in _Context.Genres.Include(t => t.book)) {
-                yield return "Количество книг: " + genre.book.Count() +" Жанр: " + genre.name;
-            }
+        public string Statistic() {
+            string json = JsonSerializer.Serialize(GenreDTO.ToListGenreDTO(_Context.Genres.Include(t => t.book).ToList<Genre>()));
+            return json;
         }
         public bool DeleteGenre(int id) {
             var FindGenre = _Context.Genres.Find(id);
             try {
                 _Context.Genres.Remove(FindGenre);
+                Save();
                 return true;
             }
             catch {

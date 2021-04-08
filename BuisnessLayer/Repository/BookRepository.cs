@@ -1,11 +1,10 @@
-﻿using WebApplication2.Models;
-
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Workers;
+﻿using BuisnessLayer.DTO;
 using BuisnessLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Text.Json;
+using WebApplication2.Entitys;
+using Workers;
 
 namespace WebApplication2.data.reposytorys
 {
@@ -24,6 +23,7 @@ namespace WebApplication2.data.reposytorys
             _context.Authors.Add(author);
             _context.Books.Add(book);
             _context.Genres.Add(genre);
+            Save();
             return "Добавлен";
         }
         public string DeleteBook(int bookID)
@@ -33,41 +33,42 @@ namespace WebApplication2.data.reposytorys
             if (Cheak == null)
             {
                 _context.Books.Remove(FindBook);
+                Save();
                 return "Готово";
             }
             else return "нельзя удалить, т.к. книга находиться у пользователя";
         }
-        public string UpdateBookGenre(int genreID,  int bookID, bool choise)
+        public string UpdateBookGenre(int genreID,  int bookID, bool create)
         {
             var FindGenre = _context.Genres.Find(genreID);
             var include = _context.Books.Where(p => p.BookID == bookID).Include(p => p.Genre).Include(p => p.author);
             var findBook = include.Where(p => p.BookID == bookID).Where(p => p.BookID == bookID).FirstOrDefault();
            
-            if (choise == true)
+            if (create == true)
             {
                 findBook.Genre.Add(FindGenre);
+                Save();
                 return "Добавлен";
             }
             else {
                 findBook.Genre.Remove(FindGenre);
                 _context.Genres.Remove(FindGenre);
+                Save();
                 return "Удалён";
             }
         }
-        public IEnumerable<string> AllBooksAuthor(int AuthorID)
+        public string AllBooksAuthor(int AuthorID)
         {
             var FindAuthor = _context.Authors.Find(AuthorID);
-            var FindBooks = _context.Books.Where(p => p.author == FindAuthor);
-            foreach (Book book in FindBooks)
-                yield return FindAuthor.first_name + "   " + FindAuthor.middle_name + "   " + FindAuthor.last_name + book.Title + book.BookID;
+            var FindBooks = _context.Books.Include(p => p.Genre).Where(p => p.author == FindAuthor).ToList<Book>();
+            string json = JsonSerializer.Serialize(BookDTO.ToListBookDTO(FindBooks));
+            return json;
         }
-        public IEnumerable<string> AllBooksGenre(int genreID)
+        public string AllBooksGenre(int genreID)
         {
-            var FindGenre = _context.Genres.Where(p => p.GenreID == genreID).Include(p => p.book).First() ;
-            foreach (Book book in FindGenre.book)
-            {
-                yield return "Количество книг: " + FindGenre.book.Count() + " Название книги: " + FindGenre.name;
-            }
+            var FindGenre = _context.Genres.Where(p => p.GenreID == genreID).Include(p => p.book).ToList<Genre>() ;
+            string json = JsonSerializer.Serialize(GenreDTO.ToListGenreDTO(FindGenre));
+            return json;
         }
         public void Save()
         {

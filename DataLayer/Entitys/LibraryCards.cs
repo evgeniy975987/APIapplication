@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-using WebApplication2.Models;
+using WebApplication2.Entitys;
 
-namespace WebApplication2.Models
+namespace WebApplication2.Entitys
 {
     
     public class LibraryCards
